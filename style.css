@@ -261,7 +261,7 @@ button[onclick*="'/'"]:active,
 
 /* Equals Button (=) */
 .equals {
-    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(180deg, hwb(309 6% 27%) 0%, #059669 100%);
     color: #ffffff;
     font-weight: 700;
     font-size: 24px;
@@ -272,7 +272,7 @@ button[onclick*="'/'"]:active,
         0 2px 0 #054e39,
         0 4px 0 #043d2d,
         0 5px 0 #032d21,
-        0 8px 12px rgba(16, 185, 129, 0.4);
+        0 8px 12px rgba(144, 12, 232, 0.4);
 }
 
 .equals:hover {
