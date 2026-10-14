@@ -15,6 +15,7 @@ body {
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     perspective: 1200px;
     overflow: hidden;
+    transition: background 0.4s ease;
 }
 
 /* Ambient floor shadow under the calculator */
@@ -26,6 +27,7 @@ body::before {
     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 70%);
     transform: translateY(220px);
     pointer-events: none;
+    transition: background 0.4s ease;
 }
 
 /* 3D Calculator Body */
@@ -55,7 +57,7 @@ body::before {
         0 18px 10px rgba(0, 0, 0, 0.4),
         0 30px 35px rgba(0, 0, 0, 0.55),
         0 50px 60px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
 }
 
 .calculator:hover {
@@ -75,16 +77,104 @@ body::before {
         0 60px 75px rgba(0, 0, 0, 0.75);
 }
 
-/* Calculator Header */
+/* Calculator Header & Controls */
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 2px;
+}
+
 h1 {
     color: #94a3b8;
-    text-align: center;
+    text-align: left;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 1px rgba(0, 0, 0, 0.9);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Theme Switcher Toggle */
+.theme-toggle {
+    position: relative;
+    width: 52px;
+    height: 26px;
+    padding: 2px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #0d1523;
+    cursor: pointer;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.7),
+        0 1px 0 rgba(255, 255, 255, 0.1);
+    display: inline-flex;
+    align-items: center;
+    outline: none;
+    user-select: none;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+.theme-toggle:active {
+    transform: scale(0.96);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.theme-toggle-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+}
+
+.theme-icon {
+    font-size: 11px;
+    line-height: 1;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    user-select: none;
+}
+
+.icon-moon {
+    opacity: 0.95;
+    transform: scale(1);
+}
+
+.icon-sun {
+    opacity: 0.35;
+    transform: scale(0.85);
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.45);
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* 3D Sunken Display */
@@ -113,6 +203,7 @@ h1 {
     text-shadow:
         0 0 12px rgba(81, 214, 179, 0.55),
         0 0 2px rgba(81, 214, 179, 0.8);
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, text-shadow 0.35s ease;
 }
 
 /* Recessed Button Tray */
@@ -127,10 +218,11 @@ h1 {
         inset 0 4px 8px rgba(0, 0, 0, 0.65),
         inset 0 1px 2px rgba(0, 0, 0, 0.8),
         0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 /* 3D Physical Push-Key Buttons */
-button {
+.buttons button {
     position: relative;
     height: 54px;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -154,10 +246,10 @@ button {
         0 5px 0 #101620,
         0 8px 8px rgba(0, 0, 0, 0.45);
     transform: translateY(0);
-    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, background 0.15s ease;
+    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-button:hover {
+.buttons button:hover {
     background: linear-gradient(180deg, #425474 0%, #2c3c54 100%);
     transform: translateY(-2px);
     box-shadow:
@@ -170,7 +262,7 @@ button:hover {
         0 12px 14px rgba(0, 0, 0, 0.5);
 }
 
-button:active {
+.buttons button:active {
     transform: translateY(4px);
     box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.4),
@@ -179,11 +271,11 @@ button:active {
 }
 
 /* Operator Keys (+, −, ×, ÷) */
-button[onclick*="'+'"],
-button[onclick*="'-'"],
-button[onclick*="'*'"],
-button[onclick*="'/'"],
-.operator {
+.buttons button[onclick*="'+'"],
+.buttons button[onclick*="'-'"],
+.buttons button[onclick*="'*'"],
+.buttons button[onclick*="'/'"],
+.buttons .operator {
     background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%);
     color: #ffffff;
     box-shadow:
@@ -196,11 +288,11 @@ button[onclick*="'/'"],
         0 8px 10px rgba(79, 70, 229, 0.35);
 }
 
-button[onclick*="'+'"]:hover,
-button[onclick*="'-'"]:hover,
-button[onclick*="'*'"]:hover,
-button[onclick*="'/'"]:hover,
-.operator:hover {
+.buttons button[onclick*="'+'"]:hover,
+.buttons button[onclick*="'-'"]:hover,
+.buttons button[onclick*="'*'"]:hover,
+.buttons button[onclick*="'/'"]:hover,
+.buttons .operator:hover {
     background: linear-gradient(180deg, #5b53f0 0%, #4038b7 100%);
     transform: translateY(-2px);
     box-shadow:
@@ -212,11 +304,11 @@ button[onclick*="'/'"]:hover,
         0 12px 15px rgba(79, 70, 229, 0.45);
 }
 
-button[onclick*="'+'"]:active,
-button[onclick*="'-'"]:active,
-button[onclick*="'*'"]:active,
-button[onclick*="'/'"]:active,
-.operator:active {
+.buttons button[onclick*="'+'"]:active,
+.buttons button[onclick*="'-'"]:active,
+.buttons button[onclick*="'*'"]:active,
+.buttons button[onclick*="'/'"]:active,
+.buttons .operator:active {
     transform: translateY(4px);
     box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.4),
@@ -225,7 +317,7 @@ button[onclick*="'/'"]:active,
 }
 
 /* Clear Button (AC) */
-.clear {
+.buttons .clear {
     background: linear-gradient(180deg, #f43f5e 0%, #be123c 100%);
     color: #ffffff;
     font-weight: 700;
@@ -239,7 +331,7 @@ button[onclick*="'/'"]:active,
         0 8px 10px rgba(244, 63, 94, 0.35);
 }
 
-.clear:hover {
+.buttons .clear:hover {
     background: linear-gradient(180deg, #fb516f 0%, #cb1542 100%);
     transform: translateY(-2px);
     box-shadow:
@@ -251,7 +343,7 @@ button[onclick*="'/'"]:active,
         0 12px 16px rgba(244, 63, 94, 0.45);
 }
 
-.clear:active {
+.buttons .clear:active {
     transform: translateY(4px);
     box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.4),
@@ -260,8 +352,8 @@ button[onclick*="'/'"]:active,
 }
 
 /* Equals Button (=) */
-.equals {
-    background: linear-gradient(180deg, hwb(309 6% 27%) 0%, #059669 100%);
+.buttons .equals {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
     color: #ffffff;
     font-weight: 700;
     font-size: 24px;
@@ -275,7 +367,7 @@ button[onclick*="'/'"]:active,
         0 8px 12px rgba(16, 185, 129, 0.4);
 }
 
-.equals:hover {
+.buttons .equals:hover {
     background: linear-gradient(180deg, #18c98e 0%, #08a374 100%);
     transform: translateY(-2px);
     box-shadow:
@@ -287,10 +379,257 @@ button[onclick*="'/'"]:active,
         0 12px 16px rgba(16, 185, 129, 0.5);
 }
 
-.equals:active {
+.buttons .equals:active {
     transform: translateY(4px);
     box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.4),
         0 1px 0 #032d21,
+        0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Light Mode Theme Styles
+   ========================================================================== */
+
+body.light-mode {
+    background: radial-gradient(circle at 50% 25%, #f8fafc 0%, #e2e8f0 50%, #94a3b8 100%);
+}
+
+body.light-mode::before {
+    background: radial-gradient(ellipse at center, rgba(71, 85, 105, 0.35) 0%, rgba(71, 85, 105, 0) 70%);
+}
+
+/* Light Mode Theme Switcher */
+body.light-mode .theme-toggle {
+    background: #e2e8f0;
+    border-color: rgba(148, 163, 184, 0.5);
+    box-shadow:
+        inset 0 2px 4px rgba(100, 116, 139, 0.25),
+        0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body.light-mode .icon-moon {
+    opacity: 0.35;
+    transform: scale(0.85);
+}
+
+body.light-mode .icon-sun {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body.light-mode .theme-toggle-thumb {
+    transform: translateX(26px);
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        0 2px 6px rgba(217, 119, 6, 0.45);
+}
+
+/* Light Mode Calculator Body */
+body.light-mode .calculator {
+    background: linear-gradient(165deg, #ffffff 0%, #f8fafc 45%, #e2e8f0 100%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 1),
+        inset 0 -2px 4px rgba(148, 163, 184, 0.35),
+        0 2px 0 #cbd5e1,
+        0 4px 0 #b8c4d6,
+        0 6px 0 #a4b3ca,
+        0 8px 0 #90a1bc,
+        0 10px 0 #7e91ad,
+        0 12px 0 #6e819e,
+        0 14px 0 #5f718f,
+        0 18px 10px rgba(71, 85, 105, 0.2),
+        0 30px 35px rgba(71, 85, 105, 0.25),
+        0 50px 60px rgba(71, 85, 105, 0.3);
+}
+
+body.light-mode .calculator:hover {
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 1),
+        inset 0 -2px 4px rgba(148, 163, 184, 0.35),
+        0 2px 0 #cbd5e1,
+        0 4px 0 #b8c4d6,
+        0 6px 0 #a4b3ca,
+        0 8px 0 #90a1bc,
+        0 11px 0 #7e91ad,
+        0 14px 0 #6e819e,
+        0 17px 0 #5f718f,
+        0 22px 14px rgba(71, 85, 105, 0.25),
+        0 36px 45px rgba(71, 85, 105, 0.3),
+        0 60px 75px rgba(71, 85, 105, 0.35);
+}
+
+body.light-mode h1 {
+    color: #475569;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Light Mode Display */
+body.light-mode #display {
+    background: #eef2f6;
+    color: #0f172a;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    box-shadow:
+        inset 0 5px 10px rgba(100, 116, 139, 0.25),
+        inset 0 2px 4px rgba(100, 116, 139, 0.2),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.95),
+        0 1px 1px rgba(255, 255, 255, 0.9);
+    text-shadow: none;
+}
+
+/* Light Mode Recessed Button Tray */
+body.light-mode .buttons {
+    background: rgba(226, 232, 240, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+        inset 0 4px 8px rgba(148, 163, 184, 0.35),
+        inset 0 1px 2px rgba(148, 163, 184, 0.45),
+        0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Light Mode Standard Buttons */
+body.light-mode .buttons button {
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+    color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 1),
+        inset 0 -2px 0 rgba(203, 213, 225, 0.5),
+        0 1px 0 #cbd5e1,
+        0 2px 0 #b8c4d6,
+        0 4px 0 #a5b4cb,
+        0 5px 0 #93a3be,
+        0 8px 8px rgba(100, 116, 139, 0.2);
+}
+
+body.light-mode .buttons button:hover {
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 1),
+        inset 0 -2px 0 rgba(203, 213, 225, 0.4),
+        0 1px 0 #cbd5e1,
+        0 3px 0 #b8c4d6,
+        0 5px 0 #a5b4cb,
+        0 7px 0 #93a3be,
+        0 12px 14px rgba(100, 116, 139, 0.25);
+}
+
+body.light-mode .buttons button:active {
+    box-shadow:
+        inset 0 2px 4px rgba(148, 163, 184, 0.4),
+        0 1px 0 #93a3be,
+        0 2px 4px rgba(100, 116, 139, 0.2);
+}
+
+/* Light Mode Operators (+, −, ×, ÷) */
+body.light-mode .buttons button[onclick*="'+'"],
+body.light-mode .buttons button[onclick*="'-'"],
+body.light-mode .buttons button[onclick*="'*'"],
+body.light-mode .buttons button[onclick*="'/'"],
+body.light-mode .operator {
+    background: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.25),
+        0 1px 0 #312e81,
+        0 2px 0 #28256b,
+        0 4px 0 #1e1b4b,
+        0 5px 0 #17143a,
+        0 8px 10px rgba(79, 70, 229, 0.35);
+}
+
+body.light-mode .buttons button[onclick*="'+'"]:hover,
+body.light-mode .buttons button[onclick*="'-'"]:hover,
+body.light-mode .buttons button[onclick*="'*'"]:hover,
+body.light-mode .buttons button[onclick*="'/'"]:hover,
+body.light-mode .operator:hover {
+    background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.45),
+        0 1px 0 #312e81,
+        0 3px 0 #28256b,
+        0 5px 0 #1e1b4b,
+        0 7px 0 #17143a,
+        0 12px 15px rgba(79, 70, 229, 0.45);
+}
+
+body.light-mode .buttons button[onclick*="'+'"]:active,
+body.light-mode .buttons button[onclick*="'-'"]:active,
+body.light-mode .buttons button[onclick*="'*'"]:active,
+body.light-mode .buttons button[onclick*="'/'"]:active,
+body.light-mode .operator:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 1px 0 #17143a,
+        0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Light Mode Clear (AC) */
+body.light-mode .clear {
+    background: linear-gradient(180deg, #f43f5e 0%, #e11d48 100%);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.25),
+        0 1px 0 #9f1239,
+        0 2px 0 #881337,
+        0 4px 0 #6e0f2d,
+        0 5px 0 #58081c,
+        0 8px 10px rgba(244, 63, 94, 0.35);
+}
+
+body.light-mode .clear:hover {
+    background: linear-gradient(180deg, #fb7185 0%, #f43f5e 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        0 1px 0 #9f1239,
+        0 3px 0 #881337,
+        0 5px 0 #6e0f2d,
+        0 7px 0 #58081c,
+        0 12px 16px rgba(244, 63, 94, 0.45);
+}
+
+body.light-mode .clear:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 1px 0 #58081c,
+        0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Light Mode Equals (=) */
+body.light-mode .equals {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.25),
+        0 1px 0 #047857,
+        0 2px 0 #065f46,
+        0 4px 0 #054e39,
+        0 5px 0 #033a2a,
+        0 8px 12px rgba(16, 185, 129, 0.35);
+}
+
+body.light-mode .equals:hover {
+    background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.55),
+        0 1px 0 #047857,
+        0 3px 0 #065f46,
+        0 5px 0 #054e39,
+        0 7px 0 #033a2a,
+        0 12px 16px rgba(16, 185, 129, 0.45);
+}
+
+body.light-mode .equals:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 1px 0 #033a2a,
         0 2px 4px rgba(0, 0, 0, 0.3);
 }
