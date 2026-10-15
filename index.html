@@ -7,10 +7,18 @@
     <title>Chris's Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="calculator">
-        <h1>My Calculator</h1>
+        <div class="calculator-header">
+            <h1>My Calculator</h1>
+            <button type="button" id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="Toggle light and dark mode" title="Switch to light mode">
+                <span class="theme-toggle-track">
+                    <span class="theme-icon icon-moon" aria-hidden="true">🌙</span>
+                    <span class="theme-icon icon-sun" aria-hidden="true">☀️</span>
+                    <span class="theme-toggle-thumb"></span>
+                </span>
+            </button>
+        </div>
 
         <input type="text" id="display" value="0" readonly>
 
