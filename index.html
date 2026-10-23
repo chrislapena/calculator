@@ -8,41 +8,99 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="calculator">
-        <div class="calculator-header">
-            <h1>My Calculator</h1>
-            <button type="button" id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="Toggle light and dark mode" title="Switch to light mode">
-                <span class="theme-toggle-track">
-                    <span class="theme-icon icon-moon" aria-hidden="true">🌙</span>
-                    <span class="theme-icon icon-sun" aria-hidden="true">☀️</span>
-                    <span class="theme-toggle-thumb"></span>
+    <div class="calculator-app" id="calculator-app">
+        <main class="calculator" id="calculator" role="region" aria-label="Calculator">
+            <div class="calculator-header">
+                <h1>My Calculator</h1>
+                <div class="header-controls">
+                    <button type="button" id="history-toggle" class="history-toggle-btn" aria-expanded="true" aria-controls="history-panel" title="Toggle Calculation History" aria-label="Toggle calculation history">
+                        <span class="history-toggle-icon" aria-hidden="true">⏱</span>
+                        <span class="history-toggle-text">History</span>
+                        <span id="history-badge" class="history-badge" style="display: none;">0</span>
+                    </button>
+                    <button type="button" id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="Toggle light and dark mode" title="Switch to light mode">
+                        <span class="theme-toggle-track">
+                            <span class="theme-icon icon-moon" aria-hidden="true">🌙</span>
+                            <span class="theme-icon icon-sun" aria-hidden="true">☀️</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <input type="text" id="display" value="0" readonly aria-label="Calculator display screen">
+
+            <div class="buttons">
+                <!-- Row 1: Clear, Sign Toggle, Percentage, Division -->
+                <button type="button" onclick="clearDisplay()" class="clear" title="All Clear">AC</button>
+                <button type="button" onclick="toggleSign()" class="scientific" title="Sign Toggle (+/-)">±</button>
+                <button type="button" onclick="percentage()" class="scientific" title="Percentage (%)">%</button>
+                <button type="button" onclick="addValue('/')" class="operator" title="Divide">÷</button>
+
+                <!-- Row 2: Scientific Functions & Multiplication -->
+                <button type="button" onclick="squareRoot()" class="scientific" title="Square Root (√)">√</button>
+                <button type="button" onclick="square()" class="scientific" title="Square (x²)">x²</button>
+                <button type="button" onclick="addValue('^')" class="scientific" title="Custom Power (xʸ)">xʸ</button>
+                <button type="button" onclick="addValue('*')" class="operator" title="Multiply">×</button>
+
+                <!-- Row 3: 7, 8, 9, Subtraction -->
+                <button type="button" onclick="addValue('7')">7</button>
+                <button type="button" onclick="addValue('8')">8</button>
+                <button type="button" onclick="addValue('9')">9</button>
+                <button type="button" onclick="addValue('-')" class="operator" title="Subtract">−</button>
+
+                <!-- Row 4: 4, 5, 6, Addition -->
+                <button type="button" onclick="addValue('4')">4</button>
+                <button type="button" onclick="addValue('5')">5</button>
+                <button type="button" onclick="addValue('6')">6</button>
+                <button type="button" onclick="addValue('+')" class="operator" title="Add">+</button>
+
+                <!-- Row 5: 1, 2, 3, Backspace -->
+                <button type="button" onclick="addValue('1')">1</button>
+                <button type="button" onclick="addValue('2')">2</button>
+                <button type="button" onclick="addValue('3')">3</button>
+                <button type="button" onclick="backspace()" class="backspace" title="Backspace">⌫</button>
+
+                <!-- Row 6: 0, Decimal Point, Equals -->
+                <button type="button" onclick="addValue('0')" class="btn-zero">0</button>
+                <button type="button" onclick="addValue('.')">.</button>
+                <button type="button" onclick="calculate()" class="equals" title="Calculate">=</button>
+            </div>
+        </main>
+
+        <!-- Backdrop for mobile drawer overlay -->
+        <div id="history-backdrop" class="history-backdrop" aria-hidden="true"></div>
+
+        <!-- History Side Panel -->
+        <aside id="history-panel" class="history-panel" role="region" aria-label="Calculation History Log">
+            <div class="history-header">
+                <div class="history-title-wrap">
+                    <span class="history-title-icon" aria-hidden="true">⏱</span>
+                    <h2>History</h2>
+                    <span id="history-count-tag" class="history-count-tag" aria-label="0 saved calculations">0</span>
+                </div>
+                <div class="history-actions">
+                    <button type="button" id="clear-history-btn" class="clear-history-btn" title="Clear past calculations from memory" aria-label="Clear all calculation history">
+                        <span class="clear-icon" aria-hidden="true">🗑</span>
+                        <span class="clear-text">Clear</span>
+                    </button>
+                    <button type="button" id="close-history-btn" class="close-history-btn" title="Close history panel" aria-label="Close history panel">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <div id="history-list" class="history-list" role="log" aria-live="polite">
+                <!-- History entries will be injected here dynamically -->
+            </div>
+
+            <div class="history-footer">
+                <span class="history-hint">
+                    <span class="hint-icon" aria-hidden="true">💡</span>
+                    Click any calculation to reload its result
                 </span>
-            </button>
-        </div>
-
-        <input type="text" id="display" value="0" readonly>
-
-        <div class="buttons">
-            <button onclick="clearDisplay()" class="clear">AC</button>
-            <button onclick="addValue('7')">7</button>
-            <button onclick="addValue('8')">8</button>
-            <button onclick="addValue('9')">9</button>
-
-            <button onclick="addValue('4')">4</button>
-            <button onclick="addValue('5')">5</button>
-            <button onclick="addValue('6')">6</button>
-            <button onclick="addValue('3')">3</button>
-
-            <button onclick="addValue('1')">1</button>
-            <button onclick="addValue('2')">2</button>
-            <button onclick="addValue('0')">0</button>
-            <button onclick="addValue('+')">+</button>
-
-            <button onclick="addValue('-')">−</button>
-            <button onclick="addValue('*')">×</button>
-            <button onclick="addValue('/')">÷</button>
-            <button onclick="calculate()" class="equals">=</button>
-        </div>
+            </div>
+        </aside>
     </div>
 
     <script src="script.js"></script>
